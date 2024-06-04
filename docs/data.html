@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree6cd8bd2a126d9a477fabbe82efa495512965d764targetblank6cd8bd2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree43aaa244501442a6ccf4d7b24813711f37878532targetblank43aaa24a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/CarT/tree/6cd8bd2a126d9a477fabbe82efa495512965d764" target="_blank">6cd8bd2</a>
+<a href="https://github.com/xsun1229/CarT/tree/43aaa244501442a6ccf4d7b24813711f37878532" target="_blank">43aaa24</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree6cd8bd2a126d9a477fabbe82efa495512965d764targetblank6cd8bd2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree43aaa244501442a6ccf4d7b24813711f37878532targetblank43aaa24a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/CarT/tree/6cd8bd2a126d9a477fabbe82efa495512965d764" target="_blank">6cd8bd2</a>.
+<a href="https://github.com/xsun1229/CarT/tree/43aaa244501442a6ccf4d7b24813711f37878532" target="_blank">43aaa24</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -614,6 +614,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/43aaa244501442a6ccf4d7b24813711f37878532/analysis/data.Rmd" target="_blank">43aaa24</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/CarT/43aaa244501442a6ccf4d7b24813711f37878532/docs/data.html" target="_blank">43aaa24</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -744,6 +778,27 @@ create_venn_diagram &lt;- function(set_A, set_B, overlap_AB, category_A = &quot;
   
   # Plot the Venn diagram
   grid.draw(venn.plot)
+}
+
+
+library(ggplot2)
+
+plot_histogram_with_labels &lt;- function(data_vector, x_label = &quot;&quot;, y_label = &quot;Count&quot;, main=&quot;&quot;) {
+
+  hist(data_vector, main = main,xlab = x_label, ylab = y_label)
+
+  # Get the bin breaks and bin counts
+  bins &lt;- hist(data_vector, plot = FALSE)$breaks
+  counts &lt;- hist(data_vector, plot = FALSE)$counts
+
+  # Add the counts to the histogram
+  for (i in 1:length(counts)) {
+  text(x = (bins[i] + bins[i+1]) / 2, 
+       y = counts[i], 
+       labels = counts[i], 
+       adj = c(0.5, -0.5))
+}
+  
 }</code></pre>
 <div id="genotype-data" class="section level1">
 <h1>Genotype data</h1>
@@ -821,7 +876,7 @@ no genotype has a posterior probability (GP) greater than 0.9
 <li><p>Removing the variants annotated as ‘LOWCONF’</p></li>
 <li><p>Removing the variants with MAF &lt; 0.01</p></li>
 </ul>
-<p><code>bcftools view -i 'INFO/AF &gt;= 0.01' -f PASS -O z -o lowconf_maf_filtered.vcf.gz CART_MERGED.vcf.gz</code></p>
+<p><code>bcftools view -i 'INFO/AF &gt;= 0.01 &amp;&amp; INFO/AF &lt;= 0.99' -f PASS -O z -o lowconf_maf_filtered.vcf.gz CART_MERGED.vcf.gz</code></p>
 <table>
 <thead>
 <tr class="header">
@@ -836,33 +891,33 @@ no genotype has a posterior probability (GP) greater than 0.9
 </tr>
 <tr class="even">
 <td>#of variants</td>
-<td>1,806,562</td>
+<td>1,003,510</td>
 </tr>
 <tr class="odd">
 <td>#of SNPs</td>
-<td>1,662,663</td>
+<td>929,150</td>
 </tr>
 <tr class="even">
 <td>#of MNPs</td>
-<td>2</td>
+<td>0</td>
 </tr>
 <tr class="odd">
 <td>#of indels</td>
-<td>143,356</td>
+<td>74,037</td>
 </tr>
 <tr class="even">
 <td>#of others</td>
-<td>541</td>
+<td>323</td>
 </tr>
 </tbody>
 </table>
 <p>Depth coverage:</p>
-<pre class="r"><code>data &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/mediate_files/summary_depths.txt&quot;, header = FALSE, col.names = c(&quot;Chrom&quot;, &quot;Pos&quot;, &quot;RSID&quot;, &quot;Ref&quot;, &quot;Alt&quot;, &quot;MinDepth&quot;, &quot;MaxDepth&quot;, &quot;AvgDepth&quot;, &quot;Count&quot;))
+<pre class="r"><code>data &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/summary_depths.txt&quot;, header = FALSE, col.names = c(&quot;Chrom&quot;, &quot;Pos&quot;, &quot;Ref&quot;, &quot;Alt&quot;, &quot;MinDepth&quot;, &quot;MaxDepth&quot;, &quot;AvgDepth&quot;, &quot;Count&quot;))
 summary(data$AvgDepth)  # Provides a statistical summary of average depths</code></pre>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   1.407   1.500   1.525   1.608  20.000 </code></pre>
-<pre class="r"><code>hist(data$AvgDepth, breaks = 50, main = &quot;Distribution of Average Depth&quot;, xlab = &quot;Average Depth&quot;)  # Histogram of average depth</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+  1.000   1.413   1.500   1.530   1.611  19.971 </code></pre>
+<pre class="r"><code>plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = &quot;Average Depth&quot;, y_label = &quot;Count&quot;, main= &quot;Distribution of Average Depth&quot;)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-2-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
 Past versions of unnamed-chunk-2-1.png
@@ -912,9 +967,10 @@ XSun
 </div>
 </div>
 <p>MAF distribution after QC</p>
-<pre class="r"><code>data &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/variant_ids_and_maf.txt&quot;, header = FALSE, col.names = c(&quot;snp&quot;,&quot;maf&quot;))
-hist(data$maf, breaks = 50, main = &quot;Distribution of MAF&quot;, xlab = &quot;MAF&quot;) </code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>variant_cart &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/variants_af_raf.txt&quot;, header = FALSE, col.names = c(&quot;chr&quot;,&quot;pos&quot;,&quot;snp&quot;,&quot;ref&quot;,&quot;alt&quot;,&quot;AF&quot;,&quot;RAF&quot;))
+variant_cart$MAF &lt;- ifelse(variant_cart$AF &lt; 0.5, variant_cart$AF, 1 - variant_cart$AF)
+plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = &quot;MAF&quot;, y_label = &quot;Count&quot;)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-3-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
 Past versions of unnamed-chunk-3-1.png
@@ -963,12 +1019,12 @@ XSun
 </div>
 <div id="comparing-with-ukbb-data" class="section level2">
 <h2>Comparing with UKBB data</h2>
-<div id="maf-0.01" class="section level3">
-<h3>MAF &gt; 0.01</h3>
-<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb001.rdata&quot;)
-
-create_venn_diagram(set_A = numukbb001, set_B = numcart001, overlap_AB = nrow(merged_var001), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="maf-of-ukbb-data" class="section level3">
+<h3>MAF of UKBB data</h3>
+<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/ukbb.var.rdata&quot;)
+ukbb$maf &lt;- ifelse(ukbb$allele_freq &gt; 0.5, 1-ukbb$allele_freq, ukbb$allele_freq)
+plot_histogram_with_labels(data_vector = ukbb$maf, x_label = &quot;MAF&quot;, y_label = &quot;Count&quot;, main = &quot;UKBB MAF&quot;)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
 Past versions of unnamed-chunk-4-1.png
@@ -993,6 +1049,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/43aaa244501442a6ccf4d7b24813711f37878532/docs/figure/data.Rmd/unnamed-chunk-4-1.png" target="_blank">43aaa24</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-4-1.png" target="_blank">6cd8bd2</a>
 </td>
 <td>
@@ -1006,12 +1073,38 @@ XSun
 </table>
 </div>
 </div>
-</div>
-<div id="maf-0.05" class="section level3">
-<h3>MAF &gt; 0.05</h3>
-<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb005.rdata&quot;)
+<pre class="r"><code># Count the number of rows for each condition
+count_maf_over_001 &lt;- sum(ukbb$maf &gt; 0.01)
+count_maf_over_005 &lt;- sum(ukbb$maf &gt; 0.05)
+count_maf_over_01 &lt;- sum(ukbb$maf &gt; 0.1)
+count_maf_over_02 &lt;- sum(ukbb$maf &gt; 0.2)
 
-create_venn_diagram(set_A = numukbb005, set_B = numcart005, overlap_AB = nrow(merged_var005), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
+# Get the total number of rows
+total_rows &lt;- nrow(ukbb)
+
+# Create a table summarizing the counts
+maf_counts &lt;- data.frame(
+  Threshold = c(&quot;MAF&gt;0.01&quot;, &quot;MAF&gt;0.05&quot;, &quot;MAF&gt;0.1&quot;, &quot;MAF&gt;0.2&quot;, &quot;Total variants&quot;),
+  Variant_Count = c(count_maf_over_001, count_maf_over_005, count_maf_over_01, count_maf_over_02, total_rows)
+)
+
+# Display the table
+maf_counts</code></pre>
+<pre><code>       Threshold Variant_Count
+1       MAF&gt;0.01       9286772
+2       MAF&gt;0.05       6703692
+3        MAF&gt;0.1       5372098
+4        MAF&gt;0.2       3627598
+5 Total variants       9309375</code></pre>
+</div>
+<div id="maf-0.01" class="section level3">
+<h3>MAF &gt; 0.01</h3>
+<pre class="r"><code>cutoff &lt;- 0.01
+
+variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1037,6 +1130,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/43aaa244501442a6ccf4d7b24813711f37878532/docs/figure/data.Rmd/unnamed-chunk-5-1.png" target="_blank">43aaa24</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-5-1.png" target="_blank">6cd8bd2</a>
 </td>
 <td>
@@ -1050,12 +1154,17 @@ XSun
 </table>
 </div>
 </div>
+<pre class="r"><code>#overlapped &lt;- merge(variant_cart_select,ukbb_select,by.x = &quot;snp&quot;,by.y = &quot;id&quot;)
+#plot(overlapped$MAF,overlapped$maf, xlab = &quot;maf in cart&quot;, ylab = &quot;maf in ukbb&quot;, main=&quot;comparing MAF from cart and ukbb&quot;)</code></pre>
 </div>
-<div id="maf-0.1" class="section level3">
-<h3>MAF &gt; 0.1</h3>
-<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb01.rdata&quot;)
+<div id="maf-0.05" class="section level3">
+<h3>MAF &gt; 0.05</h3>
+<pre class="r"><code>cutoff &lt;- 0.05
 
-create_venn_diagram(set_A = numukbb01, set_B = numcart01, overlap_AB = nrow(merged_var01), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
+variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -1081,6 +1190,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/43aaa244501442a6ccf4d7b24813711f37878532/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">43aaa24</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">6cd8bd2</a>
 </td>
 <td>
@@ -1095,11 +1215,14 @@ XSun
 </div>
 </div>
 </div>
-<div id="maf-0.02" class="section level3">
-<h3>MAF &gt; 0.02</h3>
-<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb02.rdata&quot;)
+<div id="maf-0.1" class="section level3">
+<h3>MAF &gt; 0.1</h3>
+<pre class="r"><code>cutoff &lt;- 0.1
 
-create_venn_diagram(set_A = numukbb02, set_B = numcart02, overlap_AB = nrow(merged_var02), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
+variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1125,6 +1248,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/43aaa244501442a6ccf4d7b24813711f37878532/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">43aaa24</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">6cd8bd2</a>
 </td>
 <td>
@@ -1138,6 +1272,16 @@ XSun
 </table>
 </div>
 </div>
+</div>
+<div id="maf-0.2" class="section level3">
+<h3>MAF &gt; 0.2</h3>
+<pre class="r"><code>cutoff &lt;- 0.2
+
+variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1162,24 +1306,26 @@ attached base packages:
 [8] base     
 
 other attached packages:
-[1] VennDiagram_1.7.3   futile.logger_1.4.3
+[1] ggplot2_3.5.1       VennDiagram_1.7.3   futile.logger_1.4.3
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.8.3         highr_0.9            formatR_1.12        
  [4] pillar_1.9.0         compiler_4.2.0       bslib_0.3.1         
  [7] later_1.3.0          jquerylib_0.1.4      git2r_0.30.1        
 [10] workflowr_1.7.0      futile.options_1.0.1 tools_4.2.0         
-[13] digest_0.6.29        jsonlite_1.8.0       evaluate_0.15       
-[16] lifecycle_1.0.4      tibble_3.2.1         pkgconfig_2.0.3     
-[19] rlang_1.1.2          cli_3.6.1            rstudioapi_0.13     
-[22] yaml_2.3.5           xfun_0.41            fastmap_1.1.0       
-[25] stringr_1.5.1        knitr_1.39           fs_1.5.2            
-[28] vctrs_0.6.5          sass_0.4.1           rprojroot_2.0.3     
-[31] data.table_1.14.2    glue_1.6.2           R6_2.5.1            
-[34] fansi_1.0.3          rmarkdown_2.25       lambda.r_1.2.4      
-[37] magrittr_2.0.3       whisker_0.4          promises_1.2.0.1    
-[40] htmltools_0.5.2      httpuv_1.6.5         utf8_1.2.2          
-[43] stringi_1.7.6       </code></pre>
+[13] digest_0.6.29        gtable_0.3.0         jsonlite_1.8.0      
+[16] evaluate_0.15        lifecycle_1.0.4      tibble_3.2.1        
+[19] pkgconfig_2.0.3      rlang_1.1.2          cli_3.6.1           
+[22] rstudioapi_0.13      yaml_2.3.5           xfun_0.41           
+[25] fastmap_1.1.0        withr_2.5.0          dplyr_1.1.4         
+[28] stringr_1.5.1        knitr_1.39           generics_0.1.2      
+[31] fs_1.5.2             vctrs_0.6.5          sass_0.4.1          
+[34] tidyselect_1.2.0     rprojroot_2.0.3      data.table_1.14.2   
+[37] glue_1.6.2           R6_2.5.1             fansi_1.0.3         
+[40] rmarkdown_2.25       lambda.r_1.2.4       magrittr_2.0.3      
+[43] whisker_0.4          scales_1.3.0         promises_1.2.0.1    
+[46] htmltools_0.5.2      colorspace_2.0-3     httpuv_1.6.5        
+[49] utf8_1.2.2           stringi_1.7.6        munsell_0.5.0       </code></pre>
 </div>
 </div>
 </div>
