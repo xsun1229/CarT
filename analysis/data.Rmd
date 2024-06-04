@@ -9,7 +9,7 @@ output:
 ---
 
 
-```{r}
+```{r message=F, warnings=F}
 library(VennDiagram)
 
 library(ggplot2)
@@ -48,6 +48,19 @@ STATs for the raw data, obtained by `bcftools stats CART_MERGED.vcf.gz > stats.t
 | #of MNPs     | 249        |
 | #of indels   | 3,489,092  |
 | #of others   | 64,330     |
+
+
+```{r fig.height=7,fig.width=14}
+load("/project2/xinhe/xsun/cart/data/maf.raw.rdata")
+plot_histogram_with_labels(data_vector = variant_raw_maf, x_label = "maf", y_label = "Count", main= "Distribution of MAF from raw data")
+
+sprintf("number of variants with MAF = 0 is %s" ,sum(variant_raw_maf==0))
+sprintf("the fraction is %s" ,sum(variant_raw_maf==0)/length(variant_raw_maf))
+
+variant_raw_maf_non0 <- variant_raw_maf[variant_raw_maf!=0]
+plot_histogram_with_labels(data_vector = variant_raw_maf_non0, x_label = "maf", y_label = "Count", main= "maf dist for the variants with non-0 values")
+```
+
 
 ## What the origin VCF has done
 
@@ -136,7 +149,7 @@ maf_counts
 
 ### MAF > 0.01
 
-```{r fig.height=7,fig.width=7}
+```{r fig.height=4,fig.width=4}
 
 cutoff <- 0.01
 
@@ -152,7 +165,7 @@ grid::grid.draw(vd)
 
 ### MAF > 0.05
 
-```{r fig.height=7,fig.width=7}
+```{r fig.height=4,fig.width=4}
 
 cutoff <- 0.05
 
@@ -167,7 +180,7 @@ grid::grid.draw(vd)
 
 ### MAF > 0.1
 
-```{r fig.height=7,fig.width=7}
+```{r fig.height=4,fig.width=4}
 
 cutoff <- 0.1
 
@@ -181,7 +194,7 @@ grid::grid.draw(vd)
 
 ### MAF > 0.2
 
-```{r fig.height=7,fig.width=7}
+```{r fig.height=4,fig.width=4}
 
 cutoff <- 0.2
 
