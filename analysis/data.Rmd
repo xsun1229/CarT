@@ -12,27 +12,6 @@ output:
 ```{r}
 library(VennDiagram)
 
-# Define the function to create a Venn diagram
-create_venn_diagram <- function(set_A, set_B, overlap_AB, category_A = "Set A", category_B = "Set B") {
-  # Create the Venn diagram
-  venn.plot <- draw.pairwise.venn(
-    area1 = set_A,
-    area2 = set_B,
-    cross.area = overlap_AB,
-    category = c(category_A, category_B),
-    fill = c("blue", "red"),
-    alpha = 1,
-    label.col = "white",
-    cex = 1,
-    cat.cex = 1,
-    cat.col = c("blue", "red")
-  )
-  
-  # Plot the Venn diagram
-  grid.draw(venn.plot)
-}
-
-
 library(ggplot2)
 
 plot_histogram_with_labels <- function(data_vector, x_label = "", y_label = "Count", main="") {
@@ -106,7 +85,7 @@ Quality Filters: Quality filters such as PASS and LOWCONF are applied, indicatin
 
 Depth coverage: 
 
-```{r fig.height=7,fig.width=12}
+```{r fig.height=7,fig.width=14}
 data <- data.table::fread("/project2/xinhe/xsun/cart/data/summary_depths.txt", header = FALSE, col.names = c("Chrom", "Pos", "Ref", "Alt", "MinDepth", "MaxDepth", "AvgDepth", "Count"))
 summary(data$AvgDepth)  # Provides a statistical summary of average depths
 plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = "Average Depth", y_label = "Count", main= "Distribution of Average Depth")
@@ -114,7 +93,7 @@ plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = "A
 
 MAF distribution after QC
 
-```{r fig.height=7,fig.width=12}
+```{r fig.height=7,fig.width=14}
 variant_cart <- data.table::fread("/project2/xinhe/xsun/cart/data/variants_af_raf.txt", header = FALSE, col.names = c("chr","pos","snp","ref","alt","AF","RAF"))
 variant_cart$MAF <- ifelse(variant_cart$AF < 0.5, variant_cart$AF, 1 - variant_cart$AF)
 plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = "MAF", y_label = "Count")
@@ -130,7 +109,7 @@ The max missing rate is 0.0417921%, so all samples were kept.
 
 ### MAF of UKBB data
 
-```{r fig.height=7,fig.width=12}
+```{r fig.height=7,fig.width=14}
 load("/project2/xinhe/xsun/cart/data/ukbb.var.rdata")
 ukbb$maf <- ifelse(ukbb$allele_freq > 0.5, 1-ukbb$allele_freq, ukbb$allele_freq)
 plot_histogram_with_labels(data_vector = ukbb$maf, x_label = "MAF", y_label = "Count", main = "UKBB MAF")
@@ -164,10 +143,10 @@ cutoff <- 0.01
 variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
 ukbb_select <- ukbb[ukbb$maf > cutoff,]
 
-create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
+#create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
 
-#overlapped <- merge(variant_cart_select,ukbb_select,by.x = "snp",by.y = "id")
-#plot(overlapped$MAF,overlapped$maf, xlab = "maf in cart", ylab = "maf in ukbb", main="comparing MAF from cart and ukbb")
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd)
 
 ```
 
@@ -180,7 +159,9 @@ cutoff <- 0.05
 variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
 ukbb_select <- ukbb[ukbb$maf > cutoff,]
 
-create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
+#create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd)
 
 ```
 
@@ -193,8 +174,9 @@ cutoff <- 0.1
 variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
 ukbb_select <- ukbb[ukbb$maf > cutoff,]
 
-create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
-
+#create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd)
 ```
 
 ### MAF > 0.2
@@ -206,6 +188,7 @@ cutoff <- 0.2
 variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
 ukbb_select <- ukbb[ukbb$maf > cutoff,]
 
-create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
-
+#create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd)
 ```
