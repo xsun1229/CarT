@@ -8,6 +8,31 @@ output:
     toc: true
 ---
 
+
+```{r}
+library(VennDiagram)
+
+# Define the function to create a Venn diagram
+create_venn_diagram <- function(set_A, set_B, overlap_AB, category_A = "Set A", category_B = "Set B") {
+  # Create the Venn diagram
+  venn.plot <- draw.pairwise.venn(
+    area1 = set_A,
+    area2 = set_B,
+    cross.area = overlap_AB,
+    category = c(category_A, category_B),
+    fill = c("blue", "red"),
+    alpha = 1,
+    label.col = "white",
+    cex = 1,
+    cat.cex = 1,
+    cat.col = c("blue", "red")
+  )
+  
+  # Plot the Venn diagram
+  grid.draw(venn.plot)
+}
+```
+
 # Genotype data
 
 The data is storaged at `/project2/xinhe/xsun/cart/data`
@@ -80,11 +105,38 @@ The max missing rate is 0.0417921%, so all samples were kept.
 
 ## Comparing with UKBB data
 
-```{r}
+### MAF > 0.01
+
+```{r fig.height=10,fig.width=10}
 load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb001.rdata")
-sprintf("the number of variants overlapped with UKBB variants(MAF >0.01) is %s", nrow(merged_var001))
-sprintf("the fraction of variants overlapped with UKBB variants(MAF >0.01) is %s", round(nrow(merged_var001)/nrow(data),digits = 4))
+
+create_venn_diagram(set_A = numukbb001, set_B = numcart001, overlap_AB = nrow(merged_var001), category_A = "UKBB", category_B = "CarT data")
+
 ```
 
+### MAF > 0.05
 
+```{r fig.height=10,fig.width=10}
+load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb005.rdata")
 
+create_venn_diagram(set_A = numukbb005, set_B = numcart005, overlap_AB = nrow(merged_var005), category_A = "UKBB", category_B = "CarT data")
+
+```
+
+### MAF > 0.1
+
+```{r fig.height=10,fig.width=10}
+load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb01.rdata")
+
+create_venn_diagram(set_A = numukbb01, set_B = numcart01, overlap_AB = nrow(merged_var01), category_A = "UKBB", category_B = "CarT data")
+
+```
+
+### MAF > 0.02
+
+```{r fig.height=10,fig.width=10}
+load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb02.rdata")
+
+create_venn_diagram(set_A = numukbb02, set_B = numcart02, overlap_AB = nrow(merged_var02), category_A = "UKBB", category_B = "CarT data")
+
+```
