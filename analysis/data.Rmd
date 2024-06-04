@@ -107,7 +107,7 @@ The max missing rate is 0.0417921%, so all samples were kept.
 
 ### MAF > 0.01
 
-```{r fig.height=10,fig.width=10}
+```{r fig.height=7,fig.width=7}
 load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb001.rdata")
 
 create_venn_diagram(set_A = numukbb001, set_B = numcart001, overlap_AB = nrow(merged_var001), category_A = "UKBB", category_B = "CarT data")
@@ -116,7 +116,7 @@ create_venn_diagram(set_A = numukbb001, set_B = numcart001, overlap_AB = nrow(me
 
 ### MAF > 0.05
 
-```{r fig.height=10,fig.width=10}
+```{r fig.height=7,fig.width=7}
 load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb005.rdata")
 
 create_venn_diagram(set_A = numukbb005, set_B = numcart005, overlap_AB = nrow(merged_var005), category_A = "UKBB", category_B = "CarT data")
@@ -125,7 +125,7 @@ create_venn_diagram(set_A = numukbb005, set_B = numcart005, overlap_AB = nrow(me
 
 ### MAF > 0.1
 
-```{r fig.height=10,fig.width=10}
+```{r fig.height=7,fig.width=7}
 load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb01.rdata")
 
 create_venn_diagram(set_A = numukbb01, set_B = numcart01, overlap_AB = nrow(merged_var01), category_A = "UKBB", category_B = "CarT data")
@@ -134,7 +134,7 @@ create_venn_diagram(set_A = numukbb01, set_B = numcart01, overlap_AB = nrow(merg
 
 ### MAF > 0.02
 
-```{r fig.height=10,fig.width=10}
+```{r fig.height=7,fig.width=7}
 load("/project2/xinhe/xsun/cart/data/process/overlap_ukbb02.rdata")
 
 create_venn_diagram(set_A = numukbb02, set_B = numcart02, overlap_AB = nrow(merged_var02), category_A = "UKBB", category_B = "CarT data")

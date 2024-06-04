@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree0a35aaaafc54a9b3f8717190090ad89c5df7dfd8targetblank0a35aaaa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree6cd8bd2a126d9a477fabbe82efa495512965d764targetblank6cd8bd2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/CarT/tree/0a35aaaafc54a9b3f8717190090ad89c5df7dfd8" target="_blank">0a35aaa</a>
+<a href="https://github.com/xsun1229/CarT/tree/6cd8bd2a126d9a477fabbe82efa495512965d764" target="_blank">6cd8bd2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree0a35aaaafc54a9b3f8717190090ad89c5df7dfd8targetblank0a35aaaa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree6cd8bd2a126d9a477fabbe82efa495512965d764targetblank6cd8bd2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/CarT/tree/0a35aaaafc54a9b3f8717190090ad89c5df7dfd8" target="_blank">0a35aaa</a>.
+<a href="https://github.com/xsun1229/CarT/tree/6cd8bd2a126d9a477fabbe82efa495512965d764" target="_blank">6cd8bd2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -614,6 +614,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/analysis/data.Rmd" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/CarT/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/data.html" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -853,6 +887,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-2-1.png" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/bdd88870234a96feb9aad1e226ca580df1d72de0/docs/figure/data.Rmd/unnamed-chunk-2-1.png" target="_blank">bdd8887</a>
 </td>
 <td>
@@ -870,6 +915,43 @@ XSun
 <pre class="r"><code>data &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/variant_ids_and_maf.txt&quot;, header = FALSE, col.names = c(&quot;snp&quot;,&quot;maf&quot;))
 hist(data$maf, breaks = 50, main = &quot;Distribution of MAF&quot;, xlab = &quot;MAF&quot;) </code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-3-1.png" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ol start="2" style="list-style-type: decimal">
 <li>Sample quality control:</li>
 </ol>
@@ -886,28 +968,176 @@ hist(data$maf, breaks = 50, main = &quot;Distribution of MAF&quot;, xlab = &quot
 <pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb001.rdata&quot;)
 
 create_venn_diagram(set_A = numukbb001, set_B = numcart001, overlap_AB = nrow(merged_var001), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-4-1.png" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="maf-0.05" class="section level3">
 <h3>MAF &gt; 0.05</h3>
 <pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb005.rdata&quot;)
 
 create_venn_diagram(set_A = numukbb005, set_B = numcart005, overlap_AB = nrow(merged_var005), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-5-1.png" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="maf-0.1" class="section level3">
 <h3>MAF &gt; 0.1</h3>
 <pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb01.rdata&quot;)
 
 create_venn_diagram(set_A = numukbb01, set_B = numcart01, overlap_AB = nrow(merged_var01), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="maf-0.02" class="section level3">
 <h3>MAF &gt; 0.02</h3>
 <pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/overlap_ukbb02.rdata&quot;)
 
 create_venn_diagram(set_A = numukbb02, set_B = numcart02, overlap_AB = nrow(merged_var02), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/6cd8bd2a126d9a477fabbe82efa495512965d764/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">6cd8bd2</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
