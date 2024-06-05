@@ -50,15 +50,21 @@ STATs for the raw data, obtained by `bcftools stats CART_MERGED.vcf.gz > stats.t
 | #of others   | 64,330     |
 
 
+We re-computed the allele frequency using `bcftools +fill-tags CART_MERGED.vcf.gz -Oz -o af.recomp.vcf.gz -- -t AF`
+
+
 ```{r fig.height=7,fig.width=14}
-load("/project2/xinhe/xsun/cart/data/maf.raw.rdata")
+load("/project2/xinhe/xsun/cart/data/process/maf.raw.rdata")
 plot_histogram_with_labels(data_vector = variant_raw_maf, x_label = "maf", y_label = "Count", main= "Distribution of MAF from raw data")
 
-sprintf("number of variants with MAF = 0 is %s" ,sum(variant_raw_maf==0))
-sprintf("the fraction is %s" ,sum(variant_raw_maf==0)/length(variant_raw_maf))
+load("/project2/xinhe/xsun/cart/data/process/maf.rmaf.raw.plot.sampled.rdata")
+print(p)
 
-variant_raw_maf_non0 <- variant_raw_maf[variant_raw_maf!=0]
-plot_histogram_with_labels(data_vector = variant_raw_maf_non0, x_label = "maf", y_label = "Count", main= "maf dist for the variants with non-0 values")
+# sprintf("number of variants with MAF = 0 is %s" ,sum(variant_raw_maf==0))
+# sprintf("the fraction is %s" ,sum(variant_raw_maf==0)/length(variant_raw_maf))
+# 
+# variant_raw_maf_non0 <- variant_raw_maf[variant_raw_maf!=0]
+# plot_histogram_with_labels(data_vector = variant_raw_maf_non0, x_label = "maf", y_label = "Count", main= "maf dist for the variants with non-0 values")
 ```
 
 
@@ -90,16 +96,16 @@ Quality Filters: Quality filters such as PASS and LOWCONF are applied, indicatin
 | stats        |            |
 |--------------|------------|
 | #of samples  | 105        |
-| #of variants | 1,003,510  |
-| #of SNPs     | 929,150    |
-| #of MNPs     | 0          |
-| #of indels   | 74,037     |
-| #of others   | 323        |
+| #of variants | 5,421,876  |
+| #of SNPs     | 5,007,173  |
+| #of MNPs     | 31         |
+| #of indels   | 413,075    |
+| #of others   | 1,597      |
 
 Depth coverage: 
 
 ```{r fig.height=7,fig.width=14}
-data <- data.table::fread("/project2/xinhe/xsun/cart/data/summary_depths.txt", header = FALSE, col.names = c("Chrom", "Pos", "Ref", "Alt", "MinDepth", "MaxDepth", "AvgDepth", "Count"))
+data <- data.table::fread("/project2/xinhe/xsun/cart/data/process/summary_depths.txt", header = FALSE, col.names = c("Chrom", "Pos", "Ref", "Alt", "MinDepth", "MaxDepth", "AvgDepth", "Count"))
 summary(data$AvgDepth)  # Provides a statistical summary of average depths
 plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = "Average Depth", y_label = "Count", main= "Distribution of Average Depth")
 ```
@@ -107,7 +113,7 @@ plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = "A
 MAF distribution after QC
 
 ```{r fig.height=7,fig.width=14}
-variant_cart <- data.table::fread("/project2/xinhe/xsun/cart/data/variants_af_raf.txt", header = FALSE, col.names = c("chr","pos","snp","ref","alt","AF","RAF"))
+variant_cart <- data.table::fread("/project2/xinhe/xsun/cart/data/process/variants_af_raf_filtered.txt", header = FALSE, col.names = c("snp","AF","RAF"))
 variant_cart$MAF <- ifelse(variant_cart$AF < 0.5, variant_cart$AF, 1 - variant_cart$AF)
 plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = "MAF", y_label = "Count")
 ```
@@ -123,7 +129,7 @@ The max missing rate is 0.0417921%, so all samples were kept.
 ### MAF of UKBB data
 
 ```{r fig.height=7,fig.width=14}
-load("/project2/xinhe/xsun/cart/data/ukbb.var.rdata")
+load("/project2/xinhe/xsun/cart/data/process/ukbb.var.rdata")
 ukbb$maf <- ifelse(ukbb$allele_freq > 0.5, 1-ukbb$allele_freq, ukbb$allele_freq)
 plot_histogram_with_labels(data_vector = ukbb$maf, x_label = "MAF", y_label = "Count", main = "UKBB MAF")
 

@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtreec2800845a1e2a52858e01e4f1120851de57ddc7atargetblankc280084a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree568aa967d641b63c697c721b8397a8e425c1f016targetblank568aa96a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/CarT/tree/c2800845a1e2a52858e01e4f1120851de57ddc7a" target="_blank">c280084</a>
+<a href="https://github.com/xsun1229/CarT/tree/568aa967d641b63c697c721b8397a8e425c1f016" target="_blank">568aa96</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtreec2800845a1e2a52858e01e4f1120851de57ddc7atargetblankc280084a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree568aa967d641b63c697c721b8397a8e425c1f016targetblank568aa96a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/CarT/tree/c2800845a1e2a52858e01e4f1120851de57ddc7a" target="_blank">c280084</a>.
+<a href="https://github.com/xsun1229/CarT/tree/568aa967d641b63c697c721b8397a8e425c1f016" target="_blank">568aa96</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -568,13 +568,23 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  VennDiagram.2024-06-04_14-39-31.log
-    Untracked:  VennDiagram.2024-06-04_14-39-39.log
-    Untracked:  VennDiagram.2024-06-04_14-39-46.log
-    Untracked:  VennDiagram.2024-06-04_14-39-52.log
-
 Unstaged changes:
+    Deleted:    VennDiagram.2024-06-04_14-31-12.log
+    Deleted:    VennDiagram.2024-06-04_14-31-20.log
+    Deleted:    VennDiagram.2024-06-04_14-31-28.log
+    Deleted:    VennDiagram.2024-06-04_14-31-35.log
+    Deleted:    VennDiagram.2024-06-04_14-33-10.log
+    Deleted:    VennDiagram.2024-06-04_14-33-18.log
+    Deleted:    VennDiagram.2024-06-04_14-33-25.log
+    Deleted:    VennDiagram.2024-06-04_14-33-31.log
+    Deleted:    VennDiagram.2024-06-04_14-39-31.log
+    Deleted:    VennDiagram.2024-06-04_14-39-39.log
+    Deleted:    VennDiagram.2024-06-04_14-39-46.log
+    Deleted:    VennDiagram.2024-06-04_14-39-52.log
+    Deleted:    VennDiagram.2024-06-04_15-34-31.log
+    Deleted:    VennDiagram.2024-06-04_15-34-44.log
+    Deleted:    VennDiagram.2024-06-04_15-34-53.log
+    Deleted:    VennDiagram.2024-06-04_15-35-03.log
     Modified:   analysis/data.Rmd
 
 </code></pre>
@@ -620,6 +630,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/analysis/data.Rmd" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/CarT/568aa967d641b63c697c721b8397a8e425c1f016/docs/data.html" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -892,7 +936,9 @@ plot_histogram_with_labels &lt;- function(data_vector, x_label = &quot;&quot;, y
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/maf.raw.rdata&quot;)
+<p>We re-computed the allele frequency using
+<code>bcftools +fill-tags CART_MERGED.vcf.gz -Oz -o af.recomp.vcf.gz -- -t AF</code></p>
+<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/maf.raw.rdata&quot;)
 plot_histogram_with_labels(data_vector = variant_raw_maf, x_label = &quot;maf&quot;, y_label = &quot;Count&quot;, main= &quot;Distribution of MAF from raw data&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-2-1.png" width="1344" style="display: block; margin: auto;" /></p>
 <p>
@@ -917,6 +963,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-2-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-2-1.png" target="_blank">c280084</a>
@@ -965,13 +1022,51 @@ XSun
 </table>
 </div>
 </div>
-<pre class="r"><code>sprintf(&quot;number of variants with MAF = 0 is %s&quot; ,sum(variant_raw_maf==0))</code></pre>
-<pre><code>[1] &quot;number of variants with MAF = 0 is 73146274&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;the fraction is %s&quot; ,sum(variant_raw_maf==0)/length(variant_raw_maf))</code></pre>
-<pre><code>[1] &quot;the fraction is 0.857863103453873&quot;</code></pre>
-<pre class="r"><code>variant_raw_maf_non0 &lt;- variant_raw_maf[variant_raw_maf!=0]
-plot_histogram_with_labels(data_vector = variant_raw_maf_non0, x_label = &quot;maf&quot;, y_label = &quot;Count&quot;, main= &quot;maf dist for the variants with non-0 values&quot;)</code></pre>
+<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/maf.rmaf.raw.plot.sampled.rdata&quot;)
+print(p)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-2-2.png" width="1344" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-2-2.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># sprintf(&quot;number of variants with MAF = 0 is %s&quot; ,sum(variant_raw_maf==0))
+# sprintf(&quot;the fraction is %s&quot; ,sum(variant_raw_maf==0)/length(variant_raw_maf))
+# 
+# variant_raw_maf_non0 &lt;- variant_raw_maf[variant_raw_maf!=0]
+# plot_histogram_with_labels(data_vector = variant_raw_maf_non0, x_label = &quot;maf&quot;, y_label = &quot;Count&quot;, main= &quot;maf dist for the variants with non-0 values&quot;)</code></pre>
 <div id="what-the-origin-vcf-has-done" class="section level2">
 <h2>What the origin VCF has done</h2>
 <p>File Generation and Format: The file adheres to the VCF (Variant Call
@@ -1023,31 +1118,31 @@ no genotype has a posterior probability (GP) greater than 0.9
 </tr>
 <tr class="even">
 <td>#of variants</td>
-<td>1,003,510</td>
+<td>5,421,876</td>
 </tr>
 <tr class="odd">
 <td>#of SNPs</td>
-<td>929,150</td>
+<td>5,007,173</td>
 </tr>
 <tr class="even">
 <td>#of MNPs</td>
-<td>0</td>
+<td>31</td>
 </tr>
 <tr class="odd">
 <td>#of indels</td>
-<td>74,037</td>
+<td>413,075</td>
 </tr>
 <tr class="even">
 <td>#of others</td>
-<td>323</td>
+<td>1,597</td>
 </tr>
 </tbody>
 </table>
 <p>Depth coverage:</p>
-<pre class="r"><code>data &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/summary_depths.txt&quot;, header = FALSE, col.names = c(&quot;Chrom&quot;, &quot;Pos&quot;, &quot;Ref&quot;, &quot;Alt&quot;, &quot;MinDepth&quot;, &quot;MaxDepth&quot;, &quot;AvgDepth&quot;, &quot;Count&quot;))
+<pre class="r"><code>data &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/process/summary_depths.txt&quot;, header = FALSE, col.names = c(&quot;Chrom&quot;, &quot;Pos&quot;, &quot;Ref&quot;, &quot;Alt&quot;, &quot;MinDepth&quot;, &quot;MaxDepth&quot;, &quot;AvgDepth&quot;, &quot;Count&quot;))
 summary(data$AvgDepth)  # Provides a statistical summary of average depths</code></pre>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   1.413   1.500   1.530   1.611  19.971 </code></pre>
+  1.000   1.407   1.500   1.526   1.612  20.000 </code></pre>
 <pre class="r"><code>plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = &quot;Average Depth&quot;, y_label = &quot;Count&quot;, main= &quot;Distribution of Average Depth&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-3-1.png" width="1344" style="display: block; margin: auto;" /></p>
 <p>
@@ -1072,6 +1167,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-3-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-3-1.png" target="_blank">c280084</a>
@@ -1110,7 +1216,7 @@ XSun
 </div>
 </div>
 <p>MAF distribution after QC</p>
-<pre class="r"><code>variant_cart &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/variants_af_raf.txt&quot;, header = FALSE, col.names = c(&quot;chr&quot;,&quot;pos&quot;,&quot;snp&quot;,&quot;ref&quot;,&quot;alt&quot;,&quot;AF&quot;,&quot;RAF&quot;))
+<pre class="r"><code>variant_cart &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/process/variants_af_raf_filtered.txt&quot;, header = FALSE, col.names = c(&quot;snp&quot;,&quot;AF&quot;,&quot;RAF&quot;))
 variant_cart$MAF &lt;- ifelse(variant_cart$AF &lt; 0.5, variant_cart$AF, 1 - variant_cart$AF)
 plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = &quot;MAF&quot;, y_label = &quot;Count&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-4-1.png" width="1344" style="display: block; margin: auto;" /></p>
@@ -1136,6 +1242,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-4-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-4-1.png" target="_blank">c280084</a>
@@ -1197,7 +1314,7 @@ XSun
 <h2>Comparing with UKBB data</h2>
 <div id="maf-of-ukbb-data" class="section level3">
 <h3>MAF of UKBB data</h3>
-<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/ukbb.var.rdata&quot;)
+<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/ukbb.var.rdata&quot;)
 ukbb$maf &lt;- ifelse(ukbb$allele_freq &gt; 0.5, 1-ukbb$allele_freq, ukbb$allele_freq)
 plot_histogram_with_labels(data_vector = ukbb$maf, x_label = &quot;MAF&quot;, y_label = &quot;Count&quot;, main = &quot;UKBB MAF&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-5-1.png" width="1344" style="display: block; margin: auto;" /></p>
@@ -1223,6 +1340,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-5-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-5-1.png" target="_blank">c280084</a>
@@ -1331,6 +1459,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">c280084</a>
 </td>
 <td>
@@ -1411,6 +1550,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">c280084</a>
@@ -1495,6 +1645,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-8-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/CarT/blob/c2800845a1e2a52858e01e4f1120851de57ddc7a/docs/figure/data.Rmd/unnamed-chunk-8-1.png" target="_blank">c280084</a>
 </td>
 <td>
@@ -1531,6 +1692,43 @@ ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
 vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
 grid::grid.draw(vd)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/568aa967d641b63c697c721b8397a8e425c1f016/docs/figure/data.Rmd/unnamed-chunk-9-1.png" target="_blank">568aa96</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1548,7 +1746,12 @@ Matrix products: default
 BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
 
 locale:
-[1] C
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] grid      stats     graphics  grDevices utils     datasets  methods  
@@ -1571,10 +1774,11 @@ loaded via a namespace (and not attached):
 [31] fs_1.5.2             vctrs_0.6.5          sass_0.4.1          
 [34] tidyselect_1.2.0     rprojroot_2.0.3      data.table_1.14.2   
 [37] glue_1.6.2           R6_2.5.1             fansi_1.0.3         
-[40] rmarkdown_2.25       lambda.r_1.2.4       magrittr_2.0.3      
-[43] whisker_0.4          scales_1.3.0         promises_1.2.0.1    
-[46] htmltools_0.5.2      colorspace_2.0-3     httpuv_1.6.5        
-[49] utf8_1.2.2           stringi_1.7.6        munsell_0.5.0       </code></pre>
+[40] rmarkdown_2.25       farver_2.1.0         lambda.r_1.2.4      
+[43] magrittr_2.0.3       whisker_0.4          scales_1.3.0        
+[46] promises_1.2.0.1     htmltools_0.5.2      colorspace_2.0-3    
+[49] httpuv_1.6.5         labeling_0.4.2       utf8_1.2.2          
+[52] stringi_1.7.6        munsell_0.5.0       </code></pre>
 </div>
 </div>
 </div>
