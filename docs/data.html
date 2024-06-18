@@ -402,7 +402,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-05
+<strong>Last updated:</strong> 2024-06-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree48a644865420044d860ccd65d4546bc7c5f23790targetblank48a6448a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree0f4d2b6d7241a6fe433955f494ecf566faf6d024targetblank0f4d2b6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/CarT/tree/48a644865420044d860ccd65d4546bc7c5f23790" target="_blank">48a6448</a>
+<a href="https://github.com/xsun1229/CarT/tree/0f4d2b6d7241a6fe433955f494ecf566faf6d024" target="_blank">0f4d2b6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree48a644865420044d860ccd65d4546bc7c5f23790targetblank48a6448a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229CarTtree0f4d2b6d7241a6fe433955f494ecf566faf6d024targetblank0f4d2b6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/CarT/tree/48a644865420044d860ccd65d4546bc7c5f23790" target="_blank">48a6448</a>.
+<a href="https://github.com/xsun1229/CarT/tree/0f4d2b6d7241a6fe433955f494ecf566faf6d024" target="_blank">0f4d2b6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -568,6 +568,16 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  VennDiagram.2024-06-18_17-13-14.log
+    Untracked:  VennDiagram.2024-06-18_17-13-33.log
+    Untracked:  VennDiagram.2024-06-18_17-13-52.log
+    Untracked:  VennDiagram.2024-06-18_17-14-07.log
+    Untracked:  VennDiagram.2024-06-18_17-14-22.log
+    Untracked:  VennDiagram.2024-06-18_17-14-30.log
+    Untracked:  VennDiagram.2024-06-18_17-14-43.log
+    Untracked:  VennDiagram.2024-06-18_17-15-09.log
+
 Unstaged changes:
     Modified:   analysis/data.Rmd
 
@@ -614,6 +624,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/0f4d2b6d7241a6fe433955f494ecf566faf6d024/analysis/data.Rmd" target="_blank">0f4d2b6</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-05
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/CarT/0f4d2b6d7241a6fe433955f494ecf566faf6d024/docs/data.html" target="_blank">0f4d2b6</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-05
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1144,6 +1188,10 @@ no genotype has a posterior probability (GP) greater than 0.9
 <li><p>Removing the variants with MAF &lt; 0.01</p></li>
 </ul>
 <p><code>bcftools view -i 'INFO/AF &gt;= 0.01 &amp;&amp; INFO/AF &lt;= 0.99' -f PASS -O z -o lowconf_maf_filtered.vcf.gz CART_MERGED.vcf.gz</code></p>
+<ul>
+<li>Removing the variants on chrX</li>
+</ul>
+<p><code>bcftools view -r 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 lowconf_maf_filtered.vcf.gz -Oz -o chrxfiltered.vcf.gz</code></p>
 <table>
 <thead>
 <tr class="header">
@@ -1158,23 +1206,23 @@ no genotype has a posterior probability (GP) greater than 0.9
 </tr>
 <tr class="even">
 <td>#of variants</td>
-<td>5,421,876</td>
+<td>5,190,186</td>
 </tr>
 <tr class="odd">
 <td>#of SNPs</td>
-<td>5,007,173</td>
+<td>4,792,775</td>
 </tr>
 <tr class="even">
 <td>#of MNPs</td>
-<td>31</td>
+<td>0</td>
 </tr>
 <tr class="odd">
 <td>#of indels</td>
-<td>413,075</td>
+<td>395,870</td>
 </tr>
 <tr class="even">
 <td>#of others</td>
-<td>1,597</td>
+<td>1,541</td>
 </tr>
 </tbody>
 </table>
@@ -1267,7 +1315,7 @@ XSun
 </div>
 </div>
 <p>MAF distribution after QC</p>
-<pre class="r"><code>variant_cart &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/process/variants_af_raf_filtered.txt&quot;, header = FALSE, col.names = c(&quot;snp&quot;,&quot;AF&quot;,&quot;RAF&quot;))
+<pre class="r"><code>variant_cart &lt;- data.table::fread(&quot;/project2/xinhe/xsun/cart/data/process/variants_af_raf_filtered.txt&quot;, header = FALSE, col.names = c(&quot;snp&quot;,&quot;chr&quot;,&quot;AF&quot;,&quot;RAF&quot;))
 variant_cart$MAF &lt;- ifelse(variant_cart$AF &lt; 0.5, variant_cart$AF, 1 - variant_cart$AF)
 plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = &quot;MAF&quot;, y_label = &quot;Count&quot;)</code></pre>
 <p><img src="figure/data.Rmd/unnamed-chunk-4-1.png" width="1344" style="display: block; margin: auto;" /></p>
@@ -1365,7 +1413,7 @@ XSun
 </div>
 <pre class="r"><code>nors_index_cart &lt;- grep(pattern = &quot;rs&quot;,x = variant_cart$snp,invert = T)
 sprintf(&quot;there are %s variants without rs id&quot;, length(nors_index_cart))</code></pre>
-<pre><code>[1] &quot;there are 22100 variants without rs id&quot;</code></pre>
+<pre><code>[1] &quot;there are 5695 variants without rs id&quot;</code></pre>
 <pre class="r"><code>print(&quot;To compare with UKBB, we removed these variants&quot;)</code></pre>
 <pre><code>[1] &quot;To compare with UKBB, we removed these variants&quot;</code></pre>
 <pre class="r"><code>variant_cart &lt;- variant_cart[-nors_index_cart,]
@@ -1387,19 +1435,19 @@ maf_counts &lt;- data.frame(
 # Display the table
 maf_counts</code></pre>
 <pre><code>       Threshold Variant_Count
-1       MAF&gt;0.01       5399776
-2       MAF&gt;0.05       3111338
-3        MAF&gt;0.1       2272786
-4        MAF&gt;0.2       1408486
-5 Total variants       5399776</code></pre>
+1       MAF&gt;0.01       5184491
+2       MAF&gt;0.05       3002605
+3        MAF&gt;0.1       2192393
+4        MAF&gt;0.2       1356174
+5 Total variants       5184491</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Sample quality control:</li>
 </ol>
 <ul>
 <li>Computing missing genotype rates for each sample
-<code>vcftools --gzvcf lowconf_maf_filtered.vcf.gz --missing-indv --out missingness</code></li>
+<code>vcftools --gzvcf chrxfiltered.vcf.gz --missing-indv --out missingness</code></li>
 </ul>
-<p>The max missing rate is 0.0417921%, so all samples were kept.</p>
+<p>The max missing rate is 0%, so all samples were kept.</p>
 </div>
 <div id="comparing-with-ukbb-data" class="section level2">
 <h2>Comparing with UKBB data</h2>
@@ -1497,7 +1545,10 @@ sprintf(&quot;there are %s variants without rs id&quot;, length(nors_index_ukbb)
 <pre><code>[1] &quot;To compare with CarT cohort, we removed these variants&quot;</code></pre>
 <pre class="r"><code>ukbb &lt;- ukbb[-nors_index_ukbb,]
 
-# Count the number of rows for each condition
+chrx &lt;- which(!ukbb$chrom %in% c(1:22))
+sprintf(&quot;there are %s variants on chrX&quot;, length(chrx))</code></pre>
+<pre><code>[1] &quot;there are 0 variants on chrX&quot;</code></pre>
+<pre class="r"><code># Count the number of rows for each condition
 count_maf_over_001 &lt;- sum(ukbb$maf &gt; 0.01)
 count_maf_over_005 &lt;- sum(ukbb$maf &gt; 0.05)
 count_maf_over_01 &lt;- sum(ukbb$maf &gt; 0.1)
@@ -1521,18 +1572,11 @@ maf_counts</code></pre>
 4        MAF&gt;0.2       3444817
 5 Total variants       8856770</code></pre>
 </div>
-<div id="maf-0.01" class="section level3">
-<h3>MAF &gt; 0.01</h3>
-<pre class="r"><code>cutoff &lt;- 0.01
-
-variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
-ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
-
-#create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)
-
-vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+<div id="without-any-filtering" class="section level3">
+<h3>Without any filtering</h3>
+<pre class="r"><code>vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart$snp, UKBB = ukbb$id), filename = NULL)
 grid::grid.draw(vd,recording = F)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
 Past versions of unnamed-chunk-6-1.png
@@ -1555,6 +1599,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/0f4d2b6d7241a6fe433955f494ecf566faf6d024/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">0f4d2b6</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/48a644865420044d860ccd65d4546bc7c5f23790/docs/figure/data.Rmd/unnamed-chunk-6-1.png" target="_blank">48a6448</a>
@@ -1626,17 +1681,18 @@ XSun
 </div>
 </div>
 </div>
-<div id="maf-0.05" class="section level3">
-<h3>MAF &gt; 0.05</h3>
-<pre class="r"><code>cutoff &lt;- 0.05
+<div id="maf-0.01" class="section level3">
+<h3>MAF &gt; 0.01</h3>
+<pre class="r"><code>cutoff &lt;- 0.01
 
 variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
 ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
 
 #create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)
+
 vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
 grid::grid.draw(vd,recording = F)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-7-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
 Past versions of unnamed-chunk-7-1.png
@@ -1659,6 +1715,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/0f4d2b6d7241a6fe433955f494ecf566faf6d024/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">0f4d2b6</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/48a644865420044d860ccd65d4546bc7c5f23790/docs/figure/data.Rmd/unnamed-chunk-7-1.png" target="_blank">48a6448</a>
@@ -1730,9 +1797,9 @@ XSun
 </div>
 </div>
 </div>
-<div id="maf-0.1" class="section level3">
-<h3>MAF &gt; 0.1</h3>
-<pre class="r"><code>cutoff &lt;- 0.1
+<div id="maf-0.05" class="section level3">
+<h3>MAF &gt; 0.05</h3>
+<pre class="r"><code>cutoff &lt;- 0.05
 
 variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
 ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
@@ -1740,7 +1807,7 @@ ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
 #create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)
 vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
 grid::grid.draw(vd,recording = F)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
 Past versions of unnamed-chunk-8-1.png
@@ -1763,6 +1830,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/0f4d2b6d7241a6fe433955f494ecf566faf6d024/docs/figure/data.Rmd/unnamed-chunk-8-1.png" target="_blank">0f4d2b6</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/48a644865420044d860ccd65d4546bc7c5f23790/docs/figure/data.Rmd/unnamed-chunk-8-1.png" target="_blank">48a6448</a>
@@ -1812,9 +1890,9 @@ XSun
 </div>
 </div>
 </div>
-<div id="maf-0.2" class="section level3">
-<h3>MAF &gt; 0.2</h3>
-<pre class="r"><code>cutoff &lt;- 0.2
+<div id="maf-0.1" class="section level3">
+<h3>MAF &gt; 0.1</h3>
+<pre class="r"><code>cutoff &lt;- 0.1
 
 variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt;cutoff,]
 ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
@@ -1822,7 +1900,7 @@ ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
 #create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = &quot;UKBB&quot;, category_B = &quot;CarT data&quot;)
 vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
 grid::grid.draw(vd,recording = F)</code></pre>
-<p><img src="figure/data.Rmd/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="figure/data.Rmd/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
 Past versions of unnamed-chunk-9-1.png
@@ -1845,6 +1923,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/CarT/blob/0f4d2b6d7241a6fe433955f494ecf566faf6d024/docs/figure/data.Rmd/unnamed-chunk-9-1.png" target="_blank">0f4d2b6</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-06-05
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/CarT/blob/48a644865420044d860ccd65d4546bc7c5f23790/docs/figure/data.Rmd/unnamed-chunk-9-1.png" target="_blank">48a6448</a>
@@ -1871,6 +1960,66 @@ XSun
 </table>
 </div>
 </div>
+</div>
+<div id="maf-0.2" class="section level3">
+<h3>MAF &gt; 0.2</h3>
+<pre class="r"><code>cutoff &lt;- 0.2
+
+variant_cart_select &lt;- variant_cart[variant_cart$MAF &gt; cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+
+vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-10-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="more-investigation" class="section level2">
+<h2>More investigation</h2>
+<p>The number of common variants in our data is still somewhat lower
+than expected. Ex. for high frequency variants (MAF &gt; 0.2), about
+half of UKB variants are missing in our data. So we’ll do some more
+investigation to see why.</p>
+<p>We first checked if some of the UKB common variants overlap with the
+CarT variants with MAF &lt; 0.2</p>
+<pre class="r"><code>cutoff &lt;- 0.2
+
+variant_cart_select &lt;- variant_cart[variant_cart$MAF &lt; cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>There are over 74k variants have low MAF in cart cohort. We checked
+the distribution of these MAFs</p>
+<pre class="r"><code>overlap &lt;- variant_cart_select[variant_cart_select$snp %in% ukbb_select$id,]
+hist(overlap$MAF, main =&quot;CarT MAF of the common UKB variants (overlaps)&quot;)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>overlap$RMAF &lt;- ifelse(overlap$RAF &gt; 0.5, 1-overlap$RAF, overlap$RAF)
+hist(overlap$RMAF, main =&quot;reference MAF of the common UKB variants (overlaps)&quot;)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-12-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>If we filter the CarT variants by reference allele frequency, we
+have</p>
+<pre class="r"><code>cutoff &lt;- 0.2
+
+variant_cart$RMAF &lt;- ifelse(variant_cart$RAF &gt; 0.5, 1-variant_cart$RAF, variant_cart$RAF)
+variant_cart_select &lt;- variant_cart[variant_cart$RMAF &gt; cutoff,]
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+
+vd &lt;- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The number of overlaps doesn’t increase.</p>
+<p>Then, we checked if some of the UKB common variants overlap with the
+CarT variants that were filtered out by ‘LOWCONF’</p>
+<pre class="r"><code>load(&quot;/project2/xinhe/xsun/cart/data/process/cart_var_lowconf.rdata&quot;)
+
+ukbb_select &lt;- ukbb[ukbb$maf &gt; cutoff,]
+
+vd &lt;- VennDiagram::venn.diagram(list(CarT_lowconf = cart_raw_nochrx_lowconf$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)</code></pre>
+<p><img src="figure/data.Rmd/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1916,7 +2065,6 @@ loaded via a namespace (and not attached):
 [46] promises_1.2.0.1     htmltools_0.5.2      colorspace_2.0-3    
 [49] httpuv_1.6.5         labeling_0.4.2       utf8_1.2.2          
 [52] stringi_1.7.6        munsell_0.5.0       </code></pre>
-</div>
 </div>
 </div>
 </div>

@@ -92,15 +92,19 @@ Quality Filters: Quality filters such as PASS and LOWCONF are applied, indicatin
 
 `bcftools view -i 'INFO/AF >= 0.01 && INFO/AF <= 0.99' -f PASS -O z -o lowconf_maf_filtered.vcf.gz CART_MERGED.vcf.gz`
 
+- Removing the variants on chrX
+
+`bcftools view -r 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22 lowconf_maf_filtered.vcf.gz -Oz -o chrxfiltered.vcf.gz`
 
 | stats        |            |
 |--------------|------------|
 | #of samples  | 105        |
-| #of variants | 5,421,876  |
-| #of SNPs     | 5,007,173  |
-| #of MNPs     | 31         |
-| #of indels   | 413,075    |
-| #of others   | 1,597      |
+| #of variants | 5,190,186  |
+| #of SNPs     | 4,792,775  |
+| #of MNPs     | 0          |
+| #of indels   | 395,870    |
+| #of others   | 1,541      |
+
 
 Depth coverage: 
 
@@ -113,7 +117,7 @@ plot_histogram_with_labels(data_vector = as.numeric(data$AvgDepth), x_label = "A
 MAF distribution after QC
 
 ```{r fig.height=7,fig.width=14}
-variant_cart <- data.table::fread("/project2/xinhe/xsun/cart/data/process/variants_af_raf_filtered.txt", header = FALSE, col.names = c("snp","AF","RAF"))
+variant_cart <- data.table::fread("/project2/xinhe/xsun/cart/data/process/variants_af_raf_filtered.txt", header = FALSE, col.names = c("snp","chr","AF","RAF"))
 variant_cart$MAF <- ifelse(variant_cart$AF < 0.5, variant_cart$AF, 1 - variant_cart$AF)
 plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = "MAF", y_label = "Count")
 
@@ -144,9 +148,9 @@ maf_counts
 
 2. Sample quality control:
 
-- Computing missing genotype rates for each sample `vcftools --gzvcf lowconf_maf_filtered.vcf.gz --missing-indv --out missingness`
+- Computing missing genotype rates for each sample `vcftools --gzvcf chrxfiltered.vcf.gz --missing-indv --out missingness`
 
-The max missing rate is 0.0417921%, so all samples were kept.
+The max missing rate is 0%, so all samples were kept.
 
 ## Comparing with UKBB data
 
@@ -162,6 +166,9 @@ sprintf("there are %s variants without rs id", length(nors_index_ukbb))
 print("To compare with CarT cohort, we removed these variants")
 
 ukbb <- ukbb[-nors_index_ukbb,]
+
+chrx <- which(!ukbb$chrom %in% c(1:22))
+sprintf("there are %s variants on chrX", length(chrx))
 
 # Count the number of rows for each condition
 count_maf_over_001 <- sum(ukbb$maf > 0.01)
@@ -182,10 +189,19 @@ maf_counts <- data.frame(
 maf_counts
 ```
 
+### Without any filtering
+
+```{r fig.height=6,fig.width=6}
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart$snp, UKBB = ukbb$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+
+```
+
 
 ### MAF > 0.01
 
-```{r fig.height=4,fig.width=4}
+```{r fig.height=6,fig.width=6}
 
 cutoff <- 0.01
 
@@ -201,7 +217,7 @@ grid::grid.draw(vd,recording = F)
 
 ### MAF > 0.05
 
-```{r fig.height=4,fig.width=4}
+```{r fig.height=6,fig.width=6}
 
 cutoff <- 0.05
 
@@ -216,7 +232,7 @@ grid::grid.draw(vd,recording = F)
 
 ### MAF > 0.1
 
-```{r fig.height=4,fig.width=4}
+```{r fig.height=6,fig.width=6}
 
 cutoff <- 0.1
 
@@ -230,14 +246,73 @@ grid::grid.draw(vd,recording = F)
 
 ### MAF > 0.2
 
-```{r fig.height=4,fig.width=4}
+```{r fig.height=6,fig.width=6}
 
 cutoff <- 0.2
 
-variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
+variant_cart_select <- variant_cart[variant_cart$MAF > cutoff,]
 ukbb_select <- ukbb[ukbb$maf > cutoff,]
 
-#create_venn_diagram(set_A = nrow(ukbb_select), set_B = nrow(variant_cart_select), overlap_AB = sum(ukbb_select$id %in% variant_cart_select$snp), category_A = "UKBB", category_B = "CarT data")
+
 vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
 grid::grid.draw(vd,recording = F)
 ```
+
+
+## More investigation
+
+The number of common variants in our data is still somewhat lower than expected. Ex. for high frequency variants (MAF > 0.2), about half of UKB variants are missing in our data. So we’ll do some more investigation to see why.
+
+We first checked if some of the UKB common variants overlap with the CarT variants with MAF < 0.2 
+
+```{r fig.height=6,fig.width=6}
+
+cutoff <- 0.2
+
+variant_cart_select <- variant_cart[variant_cart$MAF < cutoff,]
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+```
+
+There are over 74k variants have low MAF in cart cohort. We checked the distribution of these MAFs
+
+```{r fig.height=6,fig.width=6}
+overlap <- variant_cart_select[variant_cart_select$snp %in% ukbb_select$id,]
+hist(overlap$MAF, main ="CarT MAF of the common UKB variants (overlaps)")
+
+overlap$RMAF <- ifelse(overlap$RAF > 0.5, 1-overlap$RAF, overlap$RAF)
+hist(overlap$RMAF, main ="reference MAF of the common UKB variants (overlaps)")
+```
+
+If we filter the CarT variants by reference allele frequency, we have 
+
+```{r fig.height=6,fig.width=6}
+
+cutoff <- 0.2
+
+variant_cart$RMAF <- ifelse(variant_cart$RAF > 0.5, 1-variant_cart$RAF, variant_cart$RAF)
+variant_cart_select <- variant_cart[variant_cart$RMAF > cutoff,]
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+```
+
+The number of overlaps doesn't increase. 
+
+Then, we checked if some of the UKB common variants overlap with the CarT variants that were filtered out by 'LOWCONF'
+
+```{r fig.height=6,fig.width=6}
+
+load("/project2/xinhe/xsun/cart/data/process/cart_var_lowconf.rdata")
+
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+vd <- VennDiagram::venn.diagram(list(CarT_lowconf = cart_raw_nochrx_lowconf$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+```
+
+
