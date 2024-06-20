@@ -1,0 +1,35 @@
+---
+title: "Quality Control for the raw data"
+author: "XSun"
+date: "2024-06-20"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+---
+
+# Introduction
+
+In the analyses here: https://xsun1229.github.io/CarT/data.html , we have noticed that if we filter out the variants annotated as 'LOWCONF', we'll miss many variants.
+
+The LOWCONF filter, is applied to variants where no genotype has a posterior probability (GP) greater than 0.9 (MAX(FORMAT/GP)>0.9). 
+
+So we'll relax the threshold to allow for more uncertainty and see if we can secure more variants.
+
+We followed the steps below 
+
+- Apply MAF filter and genotype probability filter in one step, then save to a new file
+
+`bcftools view -i 'INFO/AF >= 0.01 && INFO/AF <= 0.99' af.recomp.vcf.gz | bcftools filter -i 'MAX(FORMAT/GP) > 0.8' -Oz -o GP08.MAF001.filtered.vcf.gz`
+
+- Restrict to autosomes
+
+`bcftools index GP08.MAF001.filtered.vcf.gz`
+`bcftools view -r 1-22 GP08.MAF001.filtered.vcf.gz -Oz -o GP08.MAF001.autosomes.vcf.gz`
+
+
+
+```{r}
+
+```
+

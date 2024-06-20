@@ -10,4 +10,6 @@ editor_options:
 
 # Data
 
-[link](https://xsun1229.github.io/CarT/data.html)
+[Raw genotype data summary](https://xsun1229.github.io/CarT/data.html)
+
+[Quality Control for the raw data](https://xsun1229.github.io/CarT/data_qc.html)
