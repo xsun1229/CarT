@@ -8,6 +8,29 @@ output:
     toc: true
 ---
 
+```{r message=F, warnings=F}
+library(VennDiagram)
+library(ggplot2)
+
+plot_histogram_with_labels <- function(data_vector, x_label = "", y_label = "Count", main="") {
+
+  hist(data_vector, main = main,xlab = x_label, ylab = y_label)
+
+  # Get the bin breaks and bin counts
+  bins <- hist(data_vector, plot = FALSE)$breaks
+  counts <- hist(data_vector, plot = FALSE)$counts
+
+  # Add the counts to the histogram
+  for (i in 1:length(counts)) {
+  text(x = (bins[i] + bins[i+1]) / 2, 
+       y = counts[i], 
+       labels = counts[i], 
+       adj = c(0.5, -0.5))
+}
+  
+}
+```
+
 # Introduction
 
 In the analyses here: https://xsun1229.github.io/CarT/data.html , we have noticed that if we filter out the variants annotated as 'LOWCONF', we'll miss many variants.
@@ -16,7 +39,9 @@ The LOWCONF filter, is applied to variants where no genotype has a posterior pro
 
 So we'll relax the threshold to allow for more uncertainty and see if we can secure more variants.
 
-We followed the steps below 
+# Quality Control Pipelines
+
+Since we have re-compute the AF and [checked the raw VCF file on sample-level, and all samples were kept](https://xsun1229.github.io/CarT/data.html#Further_QC). We followed the steps below to do the QC on variant-level.
 
 - Apply MAF filter and genotype probability filter in one step, then save to a new file
 
@@ -27,9 +52,132 @@ We followed the steps below
 `bcftools index GP08.MAF001.filtered.vcf.gz`
 `bcftools view -r 1-22 GP08.MAF001.filtered.vcf.gz -Oz -o GP08.MAF001.autosomes.vcf.gz`
 
+- Exclude variants deviated from HWE (P<0.0001)
 
+We added HWE tag and filter out variants with HWE p-value <= 0.0001
 
-```{r}
+`bcftools +fill-tags GP08.MAF001.autosomes.vcf.gz -- -t HWE | bcftools view -e 'INFO/HWE <= 0.0001' -Oz -o GP08.MAF001.autosomes.HWE00001.vcf.gz`
 
+# QC results for MAX(FORMAT/GP) > 0.8
+
+## Variant summary
+
+After QC we have 
+
+```{r fig.height=7,fig.width=14}
+variant_cart <- data.table::fread("/project2/xinhe/xsun/cart/data/process_GP08MAF001/variants_af_raf_GP08.MAF001.autosomes.HWE00001.txt", header = FALSE, col.names = c("snp","AF","RAF"))
+variant_cart$MAF <- ifelse(variant_cart$AF < 0.5, variant_cart$AF, 1 - variant_cart$AF)
+plot_histogram_with_labels(data_vector = variant_cart$MAF, x_label = "MAF", y_label = "Count")
+
+nors_index_cart <- grep(pattern = "rs",x = variant_cart$snp,invert = T)
+sprintf("there are %s variants without rs id", length(nors_index_cart))
+print("To compare with UKBB, we removed these variants")
+
+variant_cart <- variant_cart[-nors_index_cart,]
+
+count_maf_over_001 <- sum(variant_cart$MAF > 0.01)
+count_maf_over_005 <- sum(variant_cart$MAF > 0.05)
+count_maf_over_01 <- sum(variant_cart$MAF > 0.1)
+count_maf_over_02 <- sum(variant_cart$MAF > 0.2)
+
+# Get the total number of rows
+total_rows <- nrow(variant_cart)
+
+# Create a table summarizing the counts
+maf_counts <- data.frame(
+  Threshold = c("MAF>0.01", "MAF>0.05", "MAF>0.1", "MAF>0.2", "Total variants"),
+  Variant_Count = c(count_maf_over_001, count_maf_over_005, count_maf_over_01, count_maf_over_02, total_rows)
+)
+
+# Display the table
+maf_counts
+```
+
+## Comparing with UKBB data
+
+### MAF of UKBB data
+
+```{r fig.height=7,fig.width=14}
+load("/project2/xinhe/xsun/cart/data/process/ukbb.var.rdata")
+ukbb$maf <- ifelse(ukbb$allele_freq > 0.5, 1-ukbb$allele_freq, ukbb$allele_freq)
+plot_histogram_with_labels(data_vector = ukbb$maf, x_label = "MAF", y_label = "Count", main = "UKBB MAF")
+
+nors_index_ukbb <- grep(pattern = "rs",x = ukbb$id,invert = T)
+sprintf("there are %s variants without rs id", length(nors_index_ukbb))
+print("To compare with CarT cohort, we removed these variants")
+
+ukbb <- ukbb[-nors_index_ukbb,]
+
+# Count the number of rows for each condition
+count_maf_over_001 <- sum(ukbb$maf > 0.01)
+count_maf_over_005 <- sum(ukbb$maf > 0.05)
+count_maf_over_01 <- sum(ukbb$maf > 0.1)
+count_maf_over_02 <- sum(ukbb$maf > 0.2)
+
+# Get the total number of rows
+total_rows <- nrow(ukbb)
+
+# Create a table summarizing the counts
+maf_counts <- data.frame(
+  Threshold = c("MAF>0.01", "MAF>0.05", "MAF>0.1", "MAF>0.2", "Total variants"),
+  Variant_Count = c(count_maf_over_001, count_maf_over_005, count_maf_over_01, count_maf_over_02, total_rows)
+)
+
+# Display the table
+maf_counts
+```
+
+### MAF > 0.01
+
+```{r fig.height=6,fig.width=6}
+
+cutoff <- 0.01
+
+variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+
+```
+
+### MAF > 0.05
+
+```{r fig.height=6,fig.width=6}
+
+cutoff <- 0.05
+
+variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+
+```
+
+### MAF > 0.1
+
+```{r fig.height=6,fig.width=6}
+
+cutoff <- 0.1
+
+variant_cart_select <- variant_cart[variant_cart$MAF >cutoff,]
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
+```
+
+### MAF > 0.2
+
+```{r fig.height=6,fig.width=6}
+
+cutoff <- 0.2
+
+variant_cart_select <- variant_cart[variant_cart$MAF > cutoff,]
+ukbb_select <- ukbb[ukbb$maf > cutoff,]
+
+vd <- VennDiagram::venn.diagram(list(CarT = variant_cart_select$snp, UKBB = ukbb_select$id), filename = NULL)
+grid::grid.draw(vd,recording = F)
 ```
 
