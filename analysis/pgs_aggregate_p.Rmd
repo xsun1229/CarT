@@ -1,0 +1,50 @@
+---
+title: "Aggregate PGS p-values"
+author: "XSun"
+date: "2024-10-27"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+---
+
+```{r}
+library(ggplot2)
+library(ACAT)
+source("/project/xinhe/xsun/r_functions/qqplot_sigle.R")
+```
+
+# Introduction
+
+We use ACAT to aggregate the p-values from the traits of the same group.
+
+```{r}
+df_p <- readxl::read_excel("/project/xinhe/xsun/cart/1.pgs/data/Most_pop_MULTI_PC3_PHENOTYPE.xlsx")
+DT::datatable(df_p ,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','P-values for PGS'),options = list(pageLength = 10) )
+```
+
+# Results
+
+```{r}
+
+groups <- unique(df_p$Trait_category)
+
+acat_all <- c()
+for (group in groups){
+  
+  df_group <- df_p[df_p$Trait_category == group,]
+  df_group$P_value[df_group$P_value == 1] <- 1-1/nrow(df_group)
+  
+  acat_group <- ACAT(as.numeric(df_group$P_value))
+  acat_all <- c(acat_all,acat_group)
+}
+
+acat_all <- as.data.frame(cbind(groups,acat_all))
+colnames(acat_all) <- c("group","acat_pvalue")
+
+qqplot(as.numeric(acat_all$acat_pvalue))
+
+DT::datatable(acat_all[order(as.numeric(acat_all$acat_pvalue)),] ,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ACAT p-value for each group'),options = list(pageLength = 10) )
+```
+
+

@@ -14,3 +14,7 @@ editor_options:
 
 [Quality Control for the raw data](https://xsun1229.github.io/CarT/data_qc.html)
 
+
+# PGS
+
+[Aggregate PGS p-values](https://xsun1229.github.io/CarT/pgs_aggregate_p.html)
