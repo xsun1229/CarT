@@ -55,5 +55,5 @@ The 4 groups with ACAT p-values < 0.05
 
 ```{r}
 groups_acat <- df_p[df_p$Trait_category %in% acat_all$group[acat_all$acat_pvalue < 0.05],]
-DT::datatable(groups_acat,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ACAT p-value for each group'),options = list(pageLength = 10) )
+DT::datatable(groups_acat,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','The 4 groups with ACAT p-values < 0.05'),options = list(pageLength = 10) )
 ```
