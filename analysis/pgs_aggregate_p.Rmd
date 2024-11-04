@@ -66,10 +66,20 @@ DT::datatable(acat_df_all,caption = htmltools::tags$caption( style = 'caption-si
 qqplot(as.numeric(acat_df_all$acat_p))
 ```
 
-The 4 groups with ACAT p-values < 0.05
+The 4 categories with ACAT p-values < 0.05
 
 
 ```{r}
+
+sig_cats <- unique(acat_df_all$categroy[acat_df_all$acat_p < 0.05])
+
+for (i in 1:length(sig_cats)) {
+  trait_category <- allcategroy_df$Reported_Trait[allcategroy_df$Trait_category %in% sig_cats[i]]
+  trait_list <- paste0("  - ", unique(trait_category), collapse = "\n")
+  cat(sprintf("Traits in category %d (%s):\n%s\n\n", i, sig_cats[i], trait_list))
+}
+
+
 groups_acat <- allcategroy_df[allcategroy_df$Trait_category %in% acat_df_all$categroy[acat_df_all$acat_p < 0.05],]
 DT::datatable(groups_acat,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','The 4 groups with ACAT p-values < 0.05'),options = list(pageLength = 10) )
 ```
