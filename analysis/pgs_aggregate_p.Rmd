@@ -12,6 +12,7 @@ output:
 library(ggplot2)
 library(ACAT)
 library(dplyr)
+library(readxl)
 source("/project/xinhe/xsun/r_functions/qqplot_sigle.R")
 ```
 
@@ -19,41 +20,56 @@ source("/project/xinhe/xsun/r_functions/qqplot_sigle.R")
 
 We use ACAT to aggregate the p-values from the traits of the same group.
 
+
 ```{r}
-df_p <- readxl::read_excel("/project/xinhe/xsun/cart/1.pgs/data/Most_pop_MULTI_PC3_PHENOTYPE.xlsx")
-df_p <- df_p %>%
-  arrange(Trait_category)
-DT::datatable(df_p ,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','P-values for PGS'),options = list(pageLength = 5) )
+file_path <- "/project/xinhe/xsun/cart/1.pgs/data/MULTIVARIATE_LOGIT_PHENOTYPE_for_XS.xlsx"
+num_sheets <- length(excel_sheets(file_path))
+
+allcategroy <- list()
+allcategroy_df <- c()
+names <- c()
+acat_all <- c()
+for (i in 2:num_sheets) {
+  
+  pgs_categroy <- read_xlsx(file_path,sheet = i)
+  
+  pgs_categroy$P_value[pgs_categroy$P_value == 1] <- 1-1/nrow(pgs_categroy)
+  
+  acat_group <- ACAT(as.numeric(pgs_categroy$P_value))
+  acat_all <- c(acat_all,acat_group)
+  
+  name_current <- unique(pgs_categroy$Trait_category)[1]
+  names <- c(names,name_current)
+  
+  allcategroy[[i-1]] <- pgs_categroy
+  
+  allcategroy_df <- rbind(allcategroy_df,pgs_categroy)
+}
+
+DT::datatable(allcategroy_df ,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','P-values for PGS'),options = list(pageLength = 5) )
+
 ```
+
 
 # Results
 
 ```{r}
 
-groups <- unique(df_p$Trait_category)
+acat_df_all <- data.frame(categroy = names, acat_p = acat_all)
+names(allcategroy) <- names
 
-acat_all <- c()
-for (group in groups){
-  
-  df_group <- df_p[df_p$Trait_category == group,]
-  df_group$P_value[df_group$P_value == 1] <- 1-1/nrow(df_group)
-  
-  acat_group <- ACAT(as.numeric(df_group$P_value))
-  acat_all <- c(acat_all,acat_group)
-}
+acat_df_all <- acat_df_all[order(as.numeric(acat_df_all$acat_p)),]
 
-acat_all <- as.data.frame(cbind(groups,acat_all))
-colnames(acat_all) <- c("group","acat_pvalue")
+DT::datatable(acat_df_all,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ACAT p-values for each group'),options = list(pageLength = 10) )
 
-qqplot(as.numeric(acat_all$acat_pvalue))
 
-DT::datatable(acat_all[order(as.numeric(acat_all$acat_pvalue)),] ,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ACAT p-value for each group'),options = list(pageLength = 10) )
+qqplot(as.numeric(acat_df_all$acat_p))
 ```
 
 The 4 groups with ACAT p-values < 0.05
 
 
 ```{r}
-groups_acat <- df_p[df_p$Trait_category %in% acat_all$group[acat_all$acat_pvalue < 0.05],]
+groups_acat <- allcategroy_df[allcategroy_df$Trait_category %in% acat_df_all$categroy[acat_df_all$acat_p < 0.05],]
 DT::datatable(groups_acat,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','The 4 groups with ACAT p-values < 0.05'),options = list(pageLength = 10) )
 ```
