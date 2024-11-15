@@ -18,7 +18,7 @@ source("/project/xinhe/xsun/r_functions/qqplot_sigle.R")
 
 # Introduction
 
-We use ACAT to aggregate the p-values from the traits of the same group.
+We use ACAT to aggregate the p-values for the traits within a group / for the PGSs from top 10 immune traits.
 
 
 ```{r}
@@ -46,12 +46,11 @@ for (i in 2:num_sheets) {
   allcategroy_df <- rbind(allcategroy_df,pgs_categroy)
 }
 
-DT::datatable(allcategroy_df ,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','P-values for PGS'),options = list(pageLength = 5) )
 
 ```
 
 
-# Results
+# Results -- aggregating the p-values for the traits within a group
 
 ```{r}
 
@@ -82,4 +81,41 @@ for (i in 1:length(sig_cats)) {
 
 groups_acat <- allcategroy_df[allcategroy_df$Trait_category %in% acat_df_all$categroy[acat_df_all$acat_p < 0.05],]
 DT::datatable(groups_acat,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','The 4 groups with ACAT p-values < 0.05'),options = list(pageLength = 10) )
+
+df_withss <- read_excel("/project/xinhe/xsun/cart/1.pgs/data/Digestive_Immune_metabolic_disorders_sample_size.xlsx")
+DT::datatable(df_withss,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for Digestive_Immune_metabolic_disorders'),options = list(pageLength = 5) )
+
+```
+
+
+
+# Results -- aggregating the p-values for the PGSs from top 10 immune traits
+
+```{r}
+
+file_path <- "/project/xinhe/xsun/cart/1.pgs/data/Modified_List of the top 10 immune diseases.xlsx"
+
+df_top10 <- readxl::read_excel(file_path)
+
+traits <- unique(df_top10$Trait_ontology)
+sprintf("the top 10 inmmune traits are %s", paste0(traits,collapse = ", "))
+
+acat_all <- c()
+for (i in 1:length(traits)){
+  
+  trait <- traits[i]
+  df_trait <- df_top10[df_top10$Trait_ontology == trait,]
+  
+  acat_trait <- ACAT(as.numeric(df_trait$P_value))
+  acat_all <- c(acat_all,acat_trait)
+}
+
+acat_df_all <- data.frame(trait = traits, acat_p = acat_all)
+
+acat_df_all <- acat_df_all[order(as.numeric(acat_df_all$acat_p)),]
+
+DT::datatable(acat_df_all,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ACAT p-values for each trait'),options = list(pageLength = 10) )
+
+
+qqplot(as.numeric(acat_df_all$acat_p))
 ```
