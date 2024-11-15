@@ -46,6 +46,7 @@ for (i in 2:num_sheets) {
   allcategroy_df <- rbind(allcategroy_df,pgs_categroy)
 }
 
+DT::datatable(allcategroy_df,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Table for PGS p-values'),options = list(pageLength = 10) )
 
 ```
 
@@ -89,7 +90,9 @@ DT::datatable(df_withss,caption = htmltools::tags$caption( style = 'caption-side
 
 
 
-# Results -- aggregating the p-values for the PGSs from top 10 immune traits
+# Results -- aggregating the p-values for the PGSs from top 10 immune traits & T2D
+
+## top 10 immune traits
 
 ```{r}
 
@@ -118,4 +121,19 @@ DT::datatable(acat_df_all,caption = htmltools::tags$caption( style = 'caption-si
 
 
 qqplot(as.numeric(acat_df_all$acat_p))
+```
+
+
+## T2D
+
+```{r}
+
+df_t2d <- allcategroy_df[allcategroy_df$Trait_ontology == "type 2 diabetes mellitus",]
+
+sprintf("ACAT p-values for T2D = %s", round(ACAT(as.numeric(df_t2d$P_value)),digits = 4))
+
+DT::datatable(df_t2d,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','PGS p-values for T2D'),options = list(pageLength = 5) )
+
+
+
 ```
