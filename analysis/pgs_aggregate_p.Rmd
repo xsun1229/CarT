@@ -83,9 +83,6 @@ for (i in 1:length(sig_cats)) {
 groups_acat <- allcategroy_df[allcategroy_df$Trait_category %in% acat_df_all$categroy[acat_df_all$acat_p < 0.05],]
 DT::datatable(groups_acat,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','The 4 groups with ACAT p-values < 0.05'),options = list(pageLength = 10) )
 
-df_withss <- read_excel("/project/xinhe/xsun/cart/1.pgs/data/Digestive_Immune_metabolic_disorders_sample_size.xlsx")
-DT::datatable(df_withss,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for Digestive_Immune_metabolic_disorders'),options = list(pageLength = 5) )
-
 ```
 
 
@@ -123,17 +120,48 @@ DT::datatable(acat_df_all,caption = htmltools::tags$caption( style = 'caption-si
 qqplot(as.numeric(acat_df_all$acat_p))
 ```
 
+## T1D
+
+```{r}
+
+df_t1d <- read_excel("/project/xinhe/xsun/cart/1.pgs/data/Digestive_Immune_metabolic_disorders_sample_size.xlsx")
+
+
+
+DT::datatable(df_t1d,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','PGS p-values for T1D'),options = list(pageLength = 5) )
+
+sprintf("ACAT p-values for T1D  (all PGS) = %s", round(ACAT(as.numeric(df_t1d$P_value)),digits = 4))
+
+df_t1d_filtered <- df_t1d[df_t1d$Number_of_Individuals < 100000,]
+df_t1d_filtered <- df_t1d_filtered[complete.cases(df_t1d_filtered$P_value),]
+
+sprintf("ACAT p-values for T1D (PGS with sample size < 100,000 filtered out) = %s", round(ACAT(as.numeric(df_t1d_filtered$P_value)),digits = 4))
+
+df_t1d_filtered <- df_t1d[df_t1d$Number_of_Individuals < 50000,]
+df_t1d_filtered <- df_t1d_filtered[complete.cases(df_t1d_filtered$P_value),]
+sprintf("ACAT p-values for T1D  (PGS with sample size < 50,000 filtered out)  = %s", round(ACAT(as.numeric(df_t1d_filtered$P_value)),digits = 4))
+```
+
 
 ## T2D
 
 ```{r}
 
-df_t2d <- allcategroy_df[allcategroy_df$Trait_ontology == "type 2 diabetes mellitus",]
+df_t2d <- read_excel("/project/xinhe/xsun/cart/1.pgs/data/Digestive_metabolic_T2D_sample_size.xlsx")
 
-sprintf("ACAT p-values for T2D = %s", round(ACAT(as.numeric(df_t2d$P_value)),digits = 4))
+df_t2d$P_value[df_t2d$P_value ==1] <- 0.9999
 
 DT::datatable(df_t2d,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','PGS p-values for T2D'),options = list(pageLength = 5) )
 
+sprintf("ACAT p-values for T2D (all PGS) = %s", round(ACAT(as.numeric(df_t2d$P_value)),digits = 4))
 
 
+df_t2d_filtered <- df_t2d[df_t2d$Number_of_Individuals < 100000,]
+df_t2d_filtered <- df_t2d_filtered[complete.cases(df_t2d_filtered$P_value),]
+sprintf("ACAT p-values for T2D (PGS with sample size < 100,000 filtered out) = %s", round(ACAT(as.numeric(df_t2d_filtered$P_value)),digits = 4))
+
+
+df_t2d_filtered <- df_t2d[df_t2d$Number_of_Individuals < 50000,]
+df_t2d_filtered <- df_t2d_filtered[complete.cases(df_t2d_filtered$P_value),]
+sprintf("ACAT p-values for T2D (PGS with sample size < 50,000 filtered out) = %s", round(ACAT(as.numeric(df_t2d_filtered$P_value)),digits = 4))
 ```
