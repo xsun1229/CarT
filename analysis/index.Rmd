@@ -18,3 +18,9 @@ editor_options:
 # PGS
 
 [Aggregate PGS p-values](https://xsun1229.github.io/CarT/pgs_aggregate_p.html)
+
+
+
+# LD clumping
+
+[LD clumping](https://xsun1229.github.io/CarT/ld_clumping.html)

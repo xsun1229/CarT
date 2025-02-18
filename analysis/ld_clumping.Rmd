@@ -1,0 +1,50 @@
+---
+title: "ld clumping"
+author: "XSun"
+date: "2025-02-17"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Introduction
+
+- **The gwas data is shared by Salem**: There are 46,326 variants significantly associated with T1D at the GWAS significance threshold (5^10-8) from Chiou J et al 2021 (PMID: 34012112) T1D study contains. Out of those, there are 35,286 matching between Chiou J et al study and our CAR T-cell study. Salem extracted them from our CAR T-cell dataset and ran allele association analysis. The summary statistics is the results of this allele association analysis that shows the variants associated with T1D in the Chiou J et al study and found to be also associated with CAR T-cell response in our dataset.
+
+- **LD reference pannel** : 1000G EUR, 503 samples
+
+- **Plink LD clumping setting**: 
+
+```
+plink --bfile /project/xinhe/xsun/data/1kg/1000G_EUR_phase3_autosomes \
+      --clump gwas/gwas_for_ldclumping.txt \
+      --clump-p1 0.01  Defines the primary significance threshold for index SNPs, usually 5e-8
+      --clump-p2 0.1  Defines the secondary threshold for nearby SNPs.
+      --clump-r2 0.1  Sets the LD threshold (SNPs with r2 > 0.1 will be clumped).
+      --clump-kb 250  Sets the window size around index SNPs (250 kb).
+      --out clumped_results/clumped_results  
+```
+
+# Results
+
+```{r}
+
+clump_res <- read.table("/project/xinhe/xsun/cart/2.ldclumping/clumped_results/clumped_results.clumped", header = T)
+clump_res <- clump_res[,-12]
+
+clump_res <- clump_res[order(clump_res$CHR,clump_res$BP),]
+
+DT::datatable(clump_res,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Lead snps after LD clumping'),options = list(pageLength = 10) )
+
+```
+
+```
+CHR	Chromosome number of the index SNP.
+F	Number of clumps formed (always 1 per row, since each row is an index SNP).
+SNP	Index SNP (lead SNP) selected for the clump.
+BP	Base pair position of the index SNP.
+P	P-value of the index SNP from GWAS.
+TOTAL	Total number of SNPs in the clump (including the index SNP).
+NSIG	Number of SNPs in the clump with a P-value below --clump-p2 threshold.
+S05, S01, S001, S0001	Number of SNPs in the clump with P-values below 0.05, 0.01, 0.001, and 0.0001, respectively.
+```
