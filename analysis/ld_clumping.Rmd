@@ -2,9 +2,10 @@
 title: "ld clumping"
 author: "XSun"
 date: "2025-02-17"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
 ---
 
 # Introduction
@@ -34,7 +35,18 @@ clump_res <- clump_res[,-12]
 
 clump_res <- clump_res[order(clump_res$CHR,clump_res$BP),]
 
-DT::datatable(clump_res,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Lead snps after LD clumping'),options = list(pageLength = 10) )
+DT::datatable(clump_res, 
+          caption = htmltools::tags$caption(
+            style = 'caption-side: left; text-align: left; color:black; font-size:150%;',
+            'Lead snps after LD clumping'
+          ),
+          extensions = 'Buttons',  # Enable the Buttons extension
+          options = list(
+            pageLength = 10,
+            dom = 'Bfrtip',  # Define the table control elements to appear on the page
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')  # Add buttons for exporting
+          )
+)
 
 ```
 
@@ -47,4 +59,26 @@ P	P-value of the index SNP from GWAS.
 TOTAL	Total number of SNPs in the clump (including the index SNP).
 NSIG	Number of SNPs in the clump with a P-value below --clump-p2 threshold.
 S05, S01, S001, S0001	Number of SNPs in the clump with P-values below 0.05, 0.01, 0.001, and 0.0001, respectively.
+```
+
+```{r}
+
+gwas <- read.csv("/project/xinhe/xsun/cart/2.ldclumping/gwas/GCST90014023_CART_GWAS.csv", sep = "\t")
+
+gwas_clumped <- gwas[gwas$SNP %in% clump_res$SNP,]
+gwas_clumped <- gwas_clumped[order(gwas_clumped$CHR, gwas_clumped$BP),]
+
+DT::datatable(gwas_clumped, 
+          caption = htmltools::tags$caption(
+            style = 'caption-side: left; text-align: left; color:black; font-size:150%;',
+            'Original GWAS for the lead SNPs'
+          ),
+          extensions = 'Buttons',  # Enable the Buttons extension
+          options = list(
+            pageLength = 10,
+            dom = 'Bfrtip',  # Define the table control elements to appear on the page
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')  # Add buttons for exporting
+          )
+)
+
 ```
